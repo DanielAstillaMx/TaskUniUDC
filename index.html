@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TaskUni - Gestión de Tareas Universitarias</title>
+    <title>TaskUni - Gestión de Tareas</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -14,11 +14,6 @@
         <header class="app-header">
             <div class="header-left">
                 <h1>TaskUni</h1>
-                <div class="view-toggle">
-                    <button id="day-view" class="active">Día</button>
-                    <button id="week-view">Semana</button>
-                    <button id="month-view">Mes</button>
-                </div>
             </div>
             <div class="header-right">
                 <button id="theme-toggle"><i class="fas fa-moon"></i></button>
@@ -33,36 +28,47 @@
         <main class="main-content">
             <!-- Panel izquierdo - Materias y categorías -->
             <aside class="sidebar">
+                <h2 class="sidebar-title">Filtros</h2>
                 <div class="sidebar-section">
-                    <h3>Materias</h3>
-                    <ul id="subject-list">
-                        <li class="active" data-subject="all">Todas</li>
-                        <!-- Las materias se cargarán dinámicamente -->
-                    </ul>
-                    <button id="add-subject" class="add-button">
-                        <i class="fas fa-plus"></i> Añadir materia
-                    </button>
+                    <select id="view-select" class="custom-dropdown">
+                        <option value="day" selected>Día</option>
+                        <option value="week">Semana</option>
+                        <option value="month">Mes</option>
+                    </select>
                 </div>
 
                 <div class="sidebar-section">
-                    <h3>Categorías</h3>
-                    <ul id="category-list">
-                        <li class="active" data-category="all">Todas</li>
-                        <li data-category="exam">Examen</li>
-                        <li data-category="project">Proyecto</li>
-                        <li data-category="homework">Tarea</li>
-                        <li data-category="reading">Lectura</li>
-                    </ul>
+                    <h3>Filtros</h3>
+                    <!-- <div class="sidebar-section">
+                        <h3>Materias</h3>
+                        <ul id="subject-list">
+                            <li class="active" data-subject="all">Todas</li>
+                        </ul>
+                        <button id="add-subject" class="add-button">
+                            <i class="fas fa-plus"></i> Añadir materia
+                        </button>
+                    </div> -->
+                    <div class="sidebar-section">
+                        <h3>Categorías</h3>
+                        <ul id="category-list">
+                            <li class="active" data-category="all">Todas</li>
+                        </ul>
+                        <button id="add-category" class="add-button">
+                            <i class="fas fa-plus"></i> Añadir categoría
+                        </button>
+                    </div>
                 </div>
 
                 <div class="sidebar-section">
                     <h3>Prioridad</h3>
-                    <ul id="priority-list">
-                        <li class="active" data-priority="all">Todas</li>
-                        <li data-priority="high"><i class="fas fa-exclamation-circle"></i> Alta</li>
-                        <li data-priority="medium"><i class="fas fa-exclamation-triangle"></i> Media</li>
-                        <li data-priority="low"><i class="fas fa-info-circle"></i> Baja</li>
-                    </ul>
+                    <div class="select-container">
+                        <select id="priority-select" class="custom-dropdown">
+                            <option value="all" selected>Todas las prioridades</option>
+                            <option value="high">Alta</option>
+                            <option value="medium">Media</option>
+                            <option value="low">Baja</option>
+                        </select>
+                    </div>
                 </div>
             </aside>
 
@@ -157,13 +163,7 @@
                         <textarea id="task-description" rows="3"></textarea>
                     </div>
                     <div class="form-row">
-                        <div class="form-group">
-                            <label for="task-subject">Materia*</label>
-                            <select id="task-subject" required>
-                                <option value="">Selecciona una materia</option>
-                                <!-- Las materias se cargarán dinámicamente -->
-                            </select>
-                        </div>
+                        
                         <div class="form-group">
                             <label for="task-category">Categoría*</label>
                             <select id="task-category" required>
@@ -180,10 +180,6 @@
                         <div class="form-group">
                             <label for="task-due-date">Fecha límite*</label>
                             <input type="date" id="task-due-date" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="task-estimated-time">Tiempo estimado (horas)</label>
-                            <input type="number" id="task-estimated-time" min="0" step="0.5">
                         </div>
                     </div>
                     <div class="form-row">
@@ -225,12 +221,32 @@
     </div>
 
     <!-- Modal para añadir materia -->
-    <div class="modal" id="subject-modal">
-        <div class="modal-content small">
+    <!-- <div id="subject-modal" class="modal">
+        <div class="modal-content">
             <div class="modal-header">
-                <h3>Añadir Nueva Materia</h3>
-                <button class="close-button" id="close-subject-modal">&times;</button>
+                <h2>Nueva Materia</h2>
+                <button id="close-subject-modal" class="close-button">
+                    <i class="fas fa-times"></i>
+                </button>
             </div>
+            <form id="subject-form">
+                <div class="form-group">
+                    <label for="subject-name">Nombre de la materia *</label>
+                    <input type="text" id="subject-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="subject-color">Color</label>
+                    <input type="color" id="subject-color" value="#3a86ff">
+                </div>
+                <div class="form-actions">
+                    <button type="button" id="cancel-subject" class="secondary-button">Cancelar</button>
+                    <button type="submit" id="save-subject" class="primary-button">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div> -->
+
+    <!-- Modal para añadir categoría 
             <div class="modal-body">
                 <form id="subject-form">
                     <div class="form-group">
@@ -248,9 +264,35 @@
                 </form>
             </div>
         </div>
+    </div>-->
+
+    <!-- Modal para añadir categoría -->
+    <div class="modal" id="category-modal">
+        <div class="modal-content small">
+            <div class="modal-header">
+                <h3>Añadir Nueva Categoría</h3>
+                <button class="close-button" id="close-category-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="category-form">
+                    <div class="form-group">
+                        <label for="category-name">Nombre de la categoría*</label>
+                        <input type="text" id="category-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="category-color">Color</label>
+                        <input type="color" id="category-color" value="#3a86ff">
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="secondary-button" id="cancel-category">Cancelar</button>
+                        <button type="submit" class="primary-button" id="save-category">Guardar Categoría</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 
-    <script src="js/app.js"></script>
+    <script src="app.js"></script>
     <!-- Agregar los scripts de Firebase al final del body -->
 <script type="module" src="js/firebase-config.js"></script>
 <script type="module" src="js/auth.js"></script>

@@ -1,0 +1,107 @@
+TaskUni - Guía de Usuario
+
+Esta es una guía básica para entender cómo funciona TaskUni.
+
+1. Gestión de Tareas
+   - Crear nuevas tareas
+   - Editar tareas existentes
+   - Eliminar tareas
+   - Marcar tareas como completadas
+
+2. Categorías
+   - Escolar: Para tareas relacionadas con estudios
+   - Trabajo: Para tareas laborales
+   - Personal: Para tareas personales
+   - Pagos: Para recordatorios de pagos
+
+3. Prioridades
+   - Alta: Tareas urgentes
+   - Media: Tareas importantes pero no urgentes
+   - Baja: Tareas que pueden esperar
+
+4. Vistas
+   - Día: Muestra las tareas del día actual
+   - Semana: Muestra las tareas de la semana
+   - Mes: Muestra las tareas del mes
+
+5. Filtros
+   - Por categoría
+   - Por prioridad
+   - Búsqueda por texto
+
+6. Estadísticas
+   - Tareas completadas
+   - Tareas pendientes
+   - Tareas atrasadas
+   - Progreso semanal
+
+7. Ejemplos de Tareas (Formato Array)
+
+const sampleTasks = [
+    {
+        id: "1",
+        title: "Preparar presentación final",
+        description: "Crear slides para la presentación del proyecto final de programación",
+        category: "school",
+        dueDate: "2024-03-20",
+        priority: "high",
+        recurring: null,
+        completed: false,
+        createdAt: "2024-03-15"
+    },
+    {
+        id: "2",
+        title: "Pagar renta",
+        description: "Realizar el pago mensual de la renta",
+        category: "payments",
+        dueDate: "2024-03-25",
+        priority: "high",
+        recurring: "monthly",
+        completed: false,
+        createdAt: "2024-03-01"
+    },
+    {
+        id: "3",
+        title: "Reunión de equipo",
+        description: "Preparar agenda y materiales para la reunión semanal",
+        category: "work",
+        dueDate: "2024-03-18",
+        priority: "medium",
+        recurring: "weekly",
+        completed: false,
+        createdAt: "2024-03-15"
+    },
+    {
+        id: "4",
+        title: "Ir al gimnasio",
+        description: "Sesión de entrenamiento de 1 hora",
+        category: "personal",
+        dueDate: "2024-03-16",
+        priority: "low",
+        recurring: "daily",
+        completed: false,
+        createdAt: "2024-03-15"
+    },
+    {
+        id: "5",
+        title: "Completar informe mensual",
+        description: "Finalizar y enviar el informe de ventas del mes",
+        category: "work",
+        dueDate: "2024-03-31",
+        priority: "medium",
+        recurring: "monthly",
+        completed: false,
+        createdAt: "2024-03-01"
+    }
+];
+
+Notas sobre el formato:
+- id: Identificador único de la tarea
+- title: Título de la tarea
+- description: Descripción detallada
+- category: ID de la categoría (school, work, personal, payments)
+- dueDate: Fecha límite en formato YYYY-MM-DD
+- priority: Nivel de prioridad (high, medium, low)
+- recurring: Frecuencia de repetición (daily, weekly, monthly, null)
+- completed: Estado de la tarea (true/false)
+- createdAt: Fecha de creación en formato YYYY-MM-DD

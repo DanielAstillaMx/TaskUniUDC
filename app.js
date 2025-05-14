@@ -1,40 +1,103 @@
 // taskuni-prototype/js/app.js
 document.addEventListener('DOMContentLoaded', function() {
     // Datos de ejemplo
-    const sampleSubjects = [
-        { id: '1', name: 'Matemáticas', color: '#3a86ff' },
-        { id: '2', name: 'Programación', color: '#8338ec' },
-        { id: '3', name: 'Bases de Datos', color: '#ef476f' },
-        { id: '4', name: 'Inglés', color: '#06d6a0' },
-        { id: '5', name: 'Redes', color: '#ffbe0b' }
+    // const sampleSubjects = [
+    //     // Array vacío - sin materias de ejemplo
+    // ];
+
+    const sampleCategories = [
+        {
+            id: 'school',
+            name: 'Escolar',
+            color: '#3a86ff'
+        },
+        {
+            id: 'work',
+            name: 'Trabajo',
+            color: '#ef476f'
+        },
+        {
+            id: 'personal',
+            name: 'Personal',
+            color: '#06d6a0'
+        },
+        {
+            id: 'payments',
+            name: 'Pagos',
+            color: '#ffbe0b'
+        }
     ];
 
     const sampleTasks = [
         {
-            id: '1',
-            title: 'Tarea de Álgebra Lineal',
-            description: 'Resolver los ejercicios del capítulo 3 sobre matrices',
-            subject: '1',
-            category: 'homework',
-            dueDate: '2025-05-15',
-            estimatedTime: 3,
-            priority: 'high',
-            recurring: 'none',
+            id: "1",
+            title: "Preparar presentación final",
+            description: "Crear slides para la presentación del proyecto final de programación",
+            category: "school",
+            dueDate: "2024-03-20",
+            priority: "high",
+            recurring: null,
             completed: false,
-            createdAt: '2025-05-10'
+            createdAt: "2024-03-15"
+        },
+        {
+            id: "2",
+            title: "Pagar renta",
+            description: "Realizar el pago mensual de la renta",
+            category: "payments",
+            dueDate: "2024-03-25",
+            priority: "high",
+            recurring: "monthly",
+            completed: false,
+            createdAt: "2024-03-01"
+        },
+        {
+            id: "3",
+            title: "Reunión de equipo",
+            description: "Preparar agenda y materiales para la reunión semanal",
+            category: "work",
+            dueDate: "2024-03-18",
+            priority: "medium",
+            recurring: "weekly",
+            completed: false,
+            createdAt: "2024-03-15"
+        },
+        {
+            id: "4",
+            title: "Ir al gimnasio",
+            description: "Sesión de entrenamiento de 1 hora",
+            category: "personal",
+            dueDate: "2024-03-16",
+            priority: "low",
+            recurring: "daily",
+            completed: false,
+            createdAt: "2024-03-15"
+        },
+        {
+            id: "5",
+            title: "Completar informe mensual",
+            description: "Finalizar y enviar el informe de ventas del mes",
+            category: "work",
+            dueDate: "2024-03-31",
+            priority: "medium",
+            recurring: "monthly",
+            completed: false,
+            createdAt: "2024-03-01"
         }
+        // Array vacío - sin tareas de ejemplo
     ];
 
     // Estado de la aplicación
     let state = {
-        tasks: [...sampleTasks],
-        subjects: [...sampleSubjects],
-        currentView: 'day',
-        selectedTask: null,
-        selectedSubject: 'all',
+        tasks: sampleTasks, // Inicializar con las tareas de ejemplo
+        // subjects: [], // Inicializar con array vacío
+        categories: sampleCategories, // Inicializar con las categorías por defecto
+        // selectedSubject: 'all',
         selectedCategory: 'all',
         selectedPriority: 'all',
         searchQuery: '',
+        currentView: 'day',
+        selectedTask: null,
         theme: 'light'
     };
 
@@ -42,9 +105,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const elements = {
         taskList: document.getElementById('task-list'),
         taskDetail: document.getElementById('task-detail'),
-        subjectList: document.getElementById('subject-list'),
+        // subjectList: document.getElementById('subject-list'),
         categoryList: document.getElementById('category-list'),
-        priorityList: document.getElementById('priority-list'),
+        prioritySelect: document.getElementById('priority-select'),
+        viewSelect: document.getElementById('view-select'),
         currentViewTitle: document.getElementById('current-view-title'),
         progressChart: document.getElementById('progress-chart'),
         completedCount: document.getElementById('completed-count'),
@@ -54,38 +118,47 @@ document.addEventListener('DOMContentLoaded', function() {
         weekViewBtn: document.getElementById('week-view'),
         monthViewBtn: document.getElementById('month-view'),
         addTaskBtn: document.getElementById('add-task'),
-        addSubjectBtn: document.getElementById('add-subject'),
+        // addSubjectBtn: document.getElementById('add-subject'),
+        addCategoryBtn: document.getElementById('add-category'),
         taskSearch: document.getElementById('task-search'),
         themeToggle: document.getElementById('theme-toggle'),
         taskModal: document.getElementById('task-modal'),
-        subjectModal: document.getElementById('subject-modal'),
+        // subjectModal: document.getElementById('subject-modal'),
+        categoryModal: document.getElementById('category-modal'),
         closeModalBtn: document.getElementById('close-modal'),
-        closeSubjectModalBtn: document.getElementById('close-subject-modal'),
+        // closeSubjectModalBtn: document.getElementById('close-subject-modal'),
+        closeCategoryModalBtn: document.getElementById('close-category-modal'),
         cancelTaskBtn: document.getElementById('cancel-task'),
-        cancelSubjectBtn: document.getElementById('cancel-subject'),
+        // cancelSubjectBtn: document.getElementById('cancel-subject'),
+        cancelCategoryBtn: document.getElementById('cancel-category'),
         saveTaskBtn: document.getElementById('save-task'),
-        saveSubjectBtn: document.getElementById('save-subject'),
+        // saveSubjectBtn: document.getElementById('save-subject'),
+        saveCategoryBtn: document.getElementById('save-category'),
         taskForm: document.getElementById('task-form'),
-        subjectForm: document.getElementById('subject-form'),
+        // subjectForm: document.getElementById('subject-form'),
+        categoryForm: document.getElementById('category-form'),
         taskTitle: document.getElementById('task-title'),
         taskDescription: document.getElementById('task-description'),
         taskSubject: document.getElementById('task-subject'),
         taskCategory: document.getElementById('task-category'),
         taskDueDate: document.getElementById('task-due-date'),
-        taskEstimatedTime: document.getElementById('task-estimated-time'),
+        // taskEstimatedTime: document.getElementById('task-estimated-time'),
         taskPriority: document.getElementById('task-priority'),
         taskRecurring: document.getElementById('task-recurring'),
         taskAttachments: document.getElementById('task-attachments'),
         attachmentsPreview: document.getElementById('attachments-preview'),
-        subjectName: document.getElementById('subject-name'),
-        subjectColor: document.getElementById('subject-color'),
+        // subjectName: document.getElementById('subject-name'),
+        // subjectColor: document.getElementById('subject-color'),
+        categoryName: document.getElementById('category-name'),
+        categoryColor: document.getElementById('category-color'),
         modalTitle: document.getElementById('modal-title'),
         bottomNavButtons: document.querySelectorAll('.nav-button')
     };
 
     // Inicialización
     function init() {
-        renderSubjects();
+        // renderSubjects();
+        renderCategories();
         renderTasks();
         updateStats();
         setupEventListeners();
@@ -98,14 +171,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // Configurar event listeners
     function setupEventListeners() {
         // Cambiar vista
-        elements.dayViewBtn.addEventListener('click', () => changeView('day'));
-        elements.weekViewBtn.addEventListener('click', () => changeView('week'));
-        elements.monthViewBtn.addEventListener('click', () => changeView('month'));
+        elements.viewSelect.addEventListener('change', () => changeView(elements.viewSelect.value));
 
         // Filtrar tareas
-        elements.subjectList.addEventListener('click', handleSubjectFilter);
+        // elements.subjectList.addEventListener('click', handleSubjectFilter);
         elements.categoryList.addEventListener('click', handleCategoryFilter);
-        elements.priorityList.addEventListener('click', handlePriorityFilter);
+        elements.prioritySelect.addEventListener('change', handlePriorityFilter);
         elements.taskSearch.addEventListener('input', handleSearch);
 
         // Modal de tarea
@@ -115,10 +186,16 @@ document.addEventListener('DOMContentLoaded', function() {
         elements.taskForm.addEventListener('submit', handleTaskSubmit);
 
         // Modal de materia
-        elements.addSubjectBtn.addEventListener('click', openSubjectModal);
-        elements.closeSubjectModalBtn.addEventListener('click', closeSubjectModal);
-        elements.cancelSubjectBtn.addEventListener('click', closeSubjectModal);
-        elements.subjectForm.addEventListener('submit', handleSubjectSubmit);
+        // elements.addSubjectBtn.addEventListener('click', openSubjectModal);
+        // elements.closeSubjectModalBtn.addEventListener('click', closeSubjectModal);
+        // elements.cancelSubjectBtn.addEventListener('click', closeSubjectModal);
+        // elements.subjectForm.addEventListener('submit', handleSubjectSubmit);
+
+        // Modal de categoría
+        elements.addCategoryBtn.addEventListener('click', openCategoryModal);
+        elements.closeCategoryModalBtn.addEventListener('click', closeCategoryModal);
+        elements.cancelCategoryBtn.addEventListener('click', closeCategoryModal);
+        elements.categoryForm.addEventListener('submit', handleCategorySubmit);
 
         // Adjuntos
         elements.taskAttachments.addEventListener('change', handleFileUpload);
@@ -140,15 +217,15 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Renderizar materias
-    function renderSubjects() {
-        elements.subjectList.innerHTML = '<li class="active" data-subject="all">Todas</li>';
+    // Renderizar categorías
+    function renderCategories() {
+        elements.categoryList.innerHTML = '<li class="active" data-category="all">Todas</li>';
         
-        state.subjects.forEach(subject => {
+        state.categories.forEach(category => {
             const li = document.createElement('li');
-            li.textContent = subject.name;
-            li.setAttribute('data-subject', subject.id);
-            if (state.selectedSubject === subject.id) {
+            li.textContent = category.name;
+            li.setAttribute('data-category', category.id);
+            if (state.selectedCategory === category.id) {
                 li.classList.add('active');
             }
             
@@ -157,20 +234,20 @@ document.addEventListener('DOMContentLoaded', function() {
             colorIndicator.style.width = '12px';
             colorIndicator.style.height = '12px';
             colorIndicator.style.borderRadius = '50%';
-            colorIndicator.style.backgroundColor = subject.color;
+            colorIndicator.style.backgroundColor = category.color;
             colorIndicator.style.marginRight = '8px';
             
             li.prepend(colorIndicator);
-            elements.subjectList.appendChild(li);
+            elements.categoryList.appendChild(li);
         });
 
-        // Actualizar opciones en el formulario
-        elements.taskSubject.innerHTML = '<option value="">Selecciona una materia</option>';
-        state.subjects.forEach(subject => {
+        // Actualizar opciones en el formulario de tarea
+        elements.taskCategory.innerHTML = '<option value="">Selecciona una categoría</option>';
+        state.categories.forEach(category => {
             const option = document.createElement('option');
-            option.value = subject.id;
-            option.textContent = subject.name;
-            elements.taskSubject.appendChild(option);
+            option.value = category.id;
+            option.textContent = category.name;
+            elements.taskCategory.appendChild(option);
         });
     }
 
@@ -178,13 +255,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function renderTasks() {
         elements.taskList.innerHTML = '';
         
-        // Filtrar tareas según los criterios seleccionados
         let filteredTasks = [...state.tasks];
-        
-        // Filtrar por materia
-        if (state.selectedSubject !== 'all') {
-            filteredTasks = filteredTasks.filter(task => task.subject === state.selectedSubject);
-        }
         
         // Filtrar por categoría
         if (state.selectedCategory !== 'all') {
@@ -212,7 +283,20 @@ document.addEventListener('DOMContentLoaded', function() {
         if (filteredTasks.length === 0) {
             const emptyMessage = document.createElement('p');
             emptyMessage.className = 'empty-message';
-            emptyMessage.textContent = 'No hay tareas que coincidan con los filtros seleccionados';
+            
+            // Verificar si hay filtros activos
+            const hasActiveFilters = 
+                // state.selectedSubject !== 'all' || 
+                state.selectedCategory !== 'all' || 
+                state.selectedPriority !== 'all' || 
+                state.searchQuery !== '';
+            
+            if (hasActiveFilters) {
+                emptyMessage.textContent = 'No se encontraron tareas con los filtros seleccionados';
+            } else {
+                emptyMessage.textContent = 'Actualmente no tienes ninguna tarea pendiente';
+            }
+            
             elements.taskList.appendChild(emptyMessage);
             return;
         }
@@ -231,8 +315,6 @@ document.addEventListener('DOMContentLoaded', function() {
         if (task.completed) {
             taskElement.classList.add('completed');
         }
-        
-        const subject = state.subjects.find(s => s.id === task.subject);
         
         // Formatear fecha
         const dueDate = new Date(task.dueDate);
@@ -261,9 +343,6 @@ document.addEventListener('DOMContentLoaded', function() {
             <div class="task-card-header">
                 <div>
                     <h3 class="task-title">${task.title}</h3>
-                    <span class="task-subject" style="background-color: ${subject ? `${subject.color}20` : ''}; color: ${subject ? subject.color : ''}">
-                        ${subject ? subject.name : 'Sin materia'}
-                    </span>
                 </div>
                 <div class="task-due-date">
                     <i class="far fa-calendar-alt"></i>
@@ -318,7 +397,6 @@ document.addEventListener('DOMContentLoaded', function() {
         
         state.selectedTask = taskId;
         
-        const subject = state.subjects.find(s => s.id === task.subject);
         const dueDate = new Date(task.dueDate);
         const formattedDate = dueDate.toLocaleDateString('es-ES', {
             weekday: 'long',
@@ -328,11 +406,12 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         
         elements.taskDetail.innerHTML = `
-            <h3 class="task-detail-title">${task.title}</h3>
-            <span class="task-detail-subject" style="background-color: ${subject ? `${subject.color}20` : ''}; color: ${subject ? subject.color : ''}">
-                ${subject ? subject.name : 'Sin materia'}
-            </span>
-            
+            <div class="detail-header">
+                <button class="close-details-btn">
+                    <i class="fas fa-times"></i>
+                </button>
+                <h3 class="task-detail-title">${task.title}</h3>
+            </div>
             <div class="task-detail-meta">
                 <div class="meta-item">
                     <span class="meta-label">Categoría</span>
@@ -345,10 +424,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="meta-item">
                     <span class="meta-label">Fecha límite</span>
                     <span class="meta-value">${formattedDate}</span>
-                </div>
-                <div class="meta-item">
-                    <span class="meta-label">Tiempo estimado</span>
-                    <span class="meta-value">${task.estimatedTime || 'No especificado'} horas</span>
                 </div>
                 <div class="meta-item">
                     <span class="meta-label">Recurrente</span>
@@ -398,9 +473,21 @@ document.addEventListener('DOMContentLoaded', function() {
         elements.taskDetail.querySelector('.edit-detail-btn').addEventListener('click', () => {
             editTask(task.id);
         });
+
+        // Agregar event listener al botón de cerrar
+        elements.taskDetail.querySelector('.close-details-btn').addEventListener('click', () => {
+            closeTaskDetails();
+        });
         
         // Mostrar panel de detalles en móvil
         document.querySelector('.detail-panel').classList.add('active');
+    }
+
+    // Cerrar detalles de la tarea
+    function closeTaskDetails() {
+        elements.taskDetail.innerHTML = '<p class="empty-message">Selecciona una tarea para ver los detalles</p>';
+        state.selectedTask = null;
+        document.querySelector('.detail-panel').classList.remove('active');
     }
 
     // Actualizar estadísticas
@@ -481,27 +568,18 @@ document.addEventListener('DOMContentLoaded', function() {
     function changeView(view) {
         state.currentView = view;
         
-        // Actualizar botones activos
-        elements.dayViewBtn.classList.remove('active');
-        elements.weekViewBtn.classList.remove('active');
-        elements.monthViewBtn.classList.remove('active');
-        
         switch (view) {
             case 'day':
-                elements.dayViewBtn.classList.add('active');
                 elements.currentViewTitle.textContent = 'Tareas del Día';
                 break;
             case 'week':
-                elements.weekViewBtn.classList.add('active');
                 elements.currentViewTitle.textContent = 'Tareas de la Semana';
                 break;
             case 'month':
-                elements.monthViewBtn.classList.add('active');
                 elements.currentViewTitle.textContent = 'Tareas del Mes';
                 break;
         }
         
-        // Aquí podrías implementar lógica adicional para filtrar tareas por vista
         renderTasks();
     }
 
@@ -537,18 +615,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function handlePriorityFilter(e) {
-        if (e.target.tagName === 'LI') {
-            const priority = e.target.getAttribute('data-priority');
-            state.selectedPriority = priority;
-            
-            // Actualizar clase activa
-            document.querySelectorAll('#priority-list li').forEach(li => {
-                li.classList.remove('active');
-            });
-            e.target.classList.add('active');
-            
-            renderTasks();
-        }
+        const priority = e.target.value;
+        state.selectedPriority = priority;
+        renderTasks();
     }
 
     function handleSearch(e) {
@@ -587,10 +656,8 @@ document.addEventListener('DOMContentLoaded', function() {
         // Llenar formulario con datos de la tarea
         elements.taskTitle.value = task.title;
         elements.taskDescription.value = task.description || '';
-        elements.taskSubject.value = task.subject;
         elements.taskCategory.value = task.category;
         elements.taskDueDate.value = task.dueDate;
-        elements.taskEstimatedTime.value = task.estimatedTime || '';
         elements.taskPriority.value = task.priority;
         elements.taskRecurring.value = task.recurring || 'none';
         
@@ -641,10 +708,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const taskData = {
             title: elements.taskTitle.value.trim(),
             description: elements.taskDescription.value.trim(),
-            subject: elements.taskSubject.value,
             category: elements.taskCategory.value,
             dueDate: elements.taskDueDate.value,
-            estimatedTime: parseFloat(elements.taskEstimatedTime.value) || null,
             priority: elements.taskPriority.value,
             recurring: elements.taskRecurring.value === 'none' ? null : elements.taskRecurring.value,
             completed: false,
@@ -736,10 +801,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // Funciones auxiliares
     function getCategoryName(category) {
         switch (category) {
-            case 'exam': return 'Examen';
-            case 'project': return 'Proyecto';
-            case 'homework': return 'Tarea';
-            case 'reading': return 'Lectura';
+            case 'school': return 'Escolar';
+            case 'work': return 'Trabajo';
+            case 'personal': return 'Personal';
+            case 'payments': return 'Pagos';
             default: return 'Otro';
         }
     }
@@ -762,6 +827,39 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Iniciar la aplicación
+    // Manejar modales de categoría
+    function openCategoryModal() {
+        elements.categoryModal.classList.add('active');
+    }
+
+    function closeCategoryModal() {
+        elements.categoryModal.classList.remove('active');
+        elements.categoryForm.reset();
+    }
+
+    // Manejar envío de formulario de categoría
+    function handleCategorySubmit(e) {
+        e.preventDefault();
+        
+        const categoryName = elements.categoryName.value.trim();
+        const categoryColor = elements.categoryColor.value;
+        
+        if (!categoryName) {
+            alert('Por favor ingresa un nombre para la categoría');
+            return;
+        }
+        
+        const newCategory = {
+            id: Date.now().toString(),
+            name: categoryName,
+            color: categoryColor
+        };
+        
+        state.categories.push(newCategory);
+        closeCategoryModal();
+        renderCategories();
+    }
+
+    // Inicializar la aplicación
     init();
 });
