@@ -717,7 +717,7 @@ document.addEventListener('DOMContentLoaded', function() {
         };
         
         // Validación básica
-        if (!taskData.title || !taskData.subject || !taskData.category || !taskData.dueDate) {
+        if (!taskData.title || !taskData.category || !taskData.dueDate) {
             alert('Por favor completa los campos obligatorios (marcados con *)');
             return;
         }
