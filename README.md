@@ -9,7 +9,7 @@
 
 TaskUni es una aplicación especializada en la gestión de tareas académicas y personales para estudiantes universitarios. A diferencia de las aplicaciones genéricas de productividad, TaskUni está diseñada específicamente para el ámbito académico, ofreciendo funcionalidades como creación de tareas con metadatos académicos (materia, evidencia, duración), recordatorios personalizados, visualización mediante filtros avanzados, generación de reportes de progreso y sincronización multiplataforma. Su interfaz intuitiva y enfoque en usabilidad universitaria (incluyendo tareas recurrentes, subida de evidencias y gestión por materia) busca optimizar la productividad estudiantil y reducir el estrés asociado a la gestión inadecuada de responsabilidades académicas.
 
-# 3 Objetivos (opcional)
+#  Objetivos 
 
 -Desarrollar una aplicación multiplataforma intuitiva y funcional enfocada en la gestión de tareas académicas y personales para estudiantes universitarios.
 
@@ -40,60 +40,30 @@ TaskUni es una aplicación especializada en la gestión de tareas académicas y 
     Para instalar el proyecto no son necesarias librerías ni dependencias ya que funciona únicamente con javascript, css y html.
 
   ```bash
-  git clone https://github.com/usuario/proyecto.git
-  cd proyecto
-  npm install
-  npm run dev
+  git clone https://github.com/DanielAstillaMx/TaskUniUDC.git
+  cd cd TaskUniUDC/
+  code .
+
+# 👤 Autores o colaboradores
+
+* José Angel Daniel Astilla Muñoz -  joseangeldaniel_astilla@ucol.mx
+* Luis Mario Delgado Covarrubias  -  luismariocovarrubias06@gmail.com
+* Raúl Heredia Solorio            -  rheredia1@ucol.mx
+* Fernando Martínes Vega          -  fmartinez26@ucol.mx
+* Adriana Carolina García Serrano -  agarcia164@ucol.mx
+* Juan Josue Blas Rolon           -  jblas1@ucol.mx
+* Alejandro Castillo Valladares   -  acastillo1@ucol.mx
+* Alan Mijail Álvarez Radillo     -  alanalvarez310804@gmail.com
+* Javier Alexander Aguayo Contreras - jaguayo@ucol.mx
+
+# 🪪 Licencia
+
+* Este es un proyecto de código abierto ya que no contamos con presupuesto para licencias, siéntete en libertad de descargarlo
+* y usarlo para tus tareas
+
   ```
 
-### 6. ⚙️ Configuración (opcional)
+# 📚 Recursos adicionales
 
-* Variables de entorno.
-* Archivos de configuración (ej. `.env.example`).
+ https://youtu.be/GBIIQ0kP15E?si=_ISfIh3T-JXpKbcI
 
-### 7. 📷 Capturas de pantalla (opcional)
-
-* Imágenes o gifs para mostrar el funcionamiento de la app o interfaz.
-
-### 8. 🧪 Pruebas
-
-* Cómo correr las pruebas.
-* Frameworks usados (Jest, PyTest, etc.).
-
-  ```bash
-  npm test
-  ```
-
-### 9. 👤 Autores o colaboradores
-
-* Nombre y contacto (enlace a perfil de GitHub, LinkedIn, correo, etc.).
-
-### 10. 🤝 Contribuciones
-
-* Cómo pueden otros contribuir.
-* Link al archivo `CONTRIBUTING.md` si existe.
-
-### 11. 🪪 Licencia
-
-* Tipo de licencia (MIT, Apache, GPL, etc.).
-* Indicar si el proyecto es de código abierto o privado.
-
-### 12. 📦 Estado del proyecto / To-do (opcional)
-
-* Qué partes están completadas.
-* Qué falta por hacer.
-* Puedes usar una checklist:
-
-  ```markdown
-  - [x] Autenticación
-  - [ ] API REST
-  - [ ] Implementación móvil
-  ```
-
-### 13. 📚 Recursos adicionales (opcional)
-
-* Enlaces a documentación oficial, tutoriales, artículos, etc.
-
----
-
-¿Te gustaría que te ayude a generar un `README.md` con base en un proyecto específico que tengas?
