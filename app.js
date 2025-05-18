@@ -859,7 +859,19 @@ document.addEventListener('DOMContentLoaded', function() {
         closeCategoryModal();
         renderCategories();
     }
-
     // Inicializar la aplicación
     init();
+});
+
+   document.addEventListener("DOMContentLoaded", function () {
+    const hamburger = document.getElementById("hamburger-toggle");
+    const sidebar = document.querySelector(".sidebar");
+    const sidebarClose = document.getElementById("sidebar-close");
+
+    hamburger.addEventListener("click", function () {
+        sidebar.classList.toggle("active");
+    });
+    sidebarClose.addEventListener("click", () => {
+        sidebar.classList.remove("active");
+    });
 });

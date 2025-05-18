@@ -14,6 +14,9 @@
         <header class="app-header">
             <div class="header-left">
                 <h1>TaskUni</h1>
+                <button id="hamburger-toggle" class="hamburger">
+                ☰
+                </button>
             </div>
             <div class="header-right">
                 <button id="theme-toggle"><i class="fas fa-moon"></i></button>
@@ -28,7 +31,12 @@
         <main class="main-content">
             <!-- Panel izquierdo - Materias y categorías -->
             <aside class="sidebar">
-                <h2 class="sidebar-title">Filtros</h2>
+                <h2 class="sidebar-title">Filtros <!-- Add at the top inside .sidebar -->
+<span id="sidebar-close" class="hamburger sidebar-close">
+  ✕
+</span>
+</h2>
+            
                 <div class="sidebar-section">
                     <select id="view-select" class="custom-dropdown">
                         <option value="day" selected>Día</option>

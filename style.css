@@ -135,6 +135,12 @@ body {
     margin-bottom: 1.5rem;
     padding-bottom: 0.5rem;
     border-bottom: 2px solid var(--primary-color);
+    display: flex;
+    justify-content: space-between;
+}
+
+#sidebar-close {
+    color: var(--primary-color);
 }
 
 .sidebar-section {
@@ -936,3 +942,24 @@ body {
     background-color: var(--hover-color);
     border-color: var(--primary-color);
 } */
+
+/* Hamburger button */
+.hamburger {
+    display: none;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+/* Responsive behavior */
+@media (max-width: 768px) {
+    .hamburger {
+        display: block;
+    }
+
+    .main-content {
+        flex-direction: column;
+    }
+}
