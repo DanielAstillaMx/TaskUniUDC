@@ -456,12 +456,14 @@ document.addEventListener('DOMContentLoaded', function() {
             ` : ''}
             
             <div class="task-detail-actions">
-                <button class="primary-button complete-detail-btn" data-id="${task.id}">
-                    ${task.completed ? 'Marcar como pendiente' : 'Marcar como completada'}
-                </button>
-                <button class="secondary-button edit-detail-btn" data-id="${task.id}">
+            <button class="secondary-button edit-detail-btn" data-id="${task.id}">
                     Editar tarea
                 </button>
+            <br/>
+            <button class="primary-button complete-detail-btn" data-id="${task.id}">
+                ${task.completed ? 'Marcar como pendiente' : 'Marcar como completada'}
+            </button>
+                
             </div>
         `;
         
@@ -544,24 +546,27 @@ document.addEventListener('DOMContentLoaded', function() {
         // Renderizar barras
         elements.progressChart.innerHTML = '';
         
-        days.forEach((day, index) => {
-            const barContainer = document.createElement('div');
-            barContainer.className = 'progress-bar-container';
-            
-            const bar = document.createElement('div');
-            bar.className = 'progress-bar';
-            
-            const height = (dailyCompleted[index] / maxCompleted) * 100;
-            bar.style.height = `${height}%`;
-            
-            const label = document.createElement('div');
-            label.className = 'progress-bar-label';
-            label.textContent = day;
-            
-            barContainer.appendChild(bar);
-            barContainer.appendChild(label);
-            elements.progressChart.appendChild(barContainer);
+       days.forEach((day, index) => {
+        const barContainer = document.createElement('div');
+        barContainer.className = 'progress-bar-container';
+
+        const bar = document.createElement('div');
+        bar.className = 'progress-bar';
+
+        const value = dailyCompleted[index];
+        const height = (value / maxCompleted) * 100;
+        bar.style.height = `${height}%`;
+        barContainer.style.height = `${height+20}%`;
+
+        const label = document.createElement('div');
+        label.className = 'progress-bar-label';
+        label.textContent = day;
+
+        barContainer.appendChild(bar);
+        barContainer.appendChild(label);
+        elements.progressChart.appendChild(barContainer);
         });
+        
     }
 
     // Cambiar vista (día, semana, mes)

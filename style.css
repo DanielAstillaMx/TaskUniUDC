@@ -382,11 +382,14 @@ body {
 }
 
 .detail-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1.5rem;
-    position: relative;
+display: flex;
+
+  position: sticky;
+  top: 0;
+  background-color: var(--light-color);
+  z-index: 2;
+  padding: 1rem 0 0.5rem 0;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .close-details-btn {
@@ -409,6 +412,7 @@ body {
 }
 
 .task-detail-title {
+    
     font-size: 1.25rem;
     font-weight: 600;
     margin: 0;
@@ -511,22 +515,31 @@ body {
 }
 
 .progress-bar {
+    width: 80%; 
     flex: 1;
     background-color: var(--primary-color);
     margin: 0 0.25rem;
     border-radius: 4px;
     position: relative;
+    border-radius: 4px 4px 0 0;
     transition: height 0.5s ease;
 }
 
+
 .progress-bar-label {
-    position: absolute;
-    top: -1.5rem;
-    left: 0;
-    right: 0;
-    text-align: center;
-    font-size: 0.7rem;
-    color: var(--gray-color);
+  margin-top: 6px;
+  font-size: 0.75rem;
+  color: var(--gray-color);
+  text-align: center;
+}
+.progress-bar-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100%;
+  margin: 0 2px;
 }
 
 .progress-stats {
@@ -953,7 +966,6 @@ body {
     cursor: pointer;
 }
 
-/* Responsive behavior */
 @media (max-width: 768px) {
     .hamburger {
         display: block;
@@ -962,4 +974,5 @@ body {
     .main-content {
         flex-direction: column;
     }
+    
 }
